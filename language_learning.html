@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Learning Platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .language-selection, .phrases, .quiz {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #4CAF50;
+        }
+
+        select {
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        #quizResult {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Language Learning Platform</h1>
+        <p>Select a language and start learning today!</p>
+<div style="text-align:center; margin-top:30px;">
+<a style="padding:10px 30px 10px 30px;color:white;background-color:red;font-size:20px;" href="Project_L.html">Home</a></div>
+
+    </header>
+
+    <section class="language-selection">
+        <h2>Select a Language</h2>
+        <select id="languageDropdown" onchange="loadPhrases()">
+            <option value="">--Choose a Language--</option>
+            <option value="spanish">Spanish</option>
+            <option value="french">French</option>
+            <option value="german">German</option>
+        </select>
+    </section>
+
+    <section class="phrases">
+        <h2>Common Phrases</h2>
+        <ul id="phraseList"></ul>
+    </section>
+
+    <section class="quiz">
+        <h2>Quick Quiz</h2>
+        <p id="quizQuestion">Translate the word: <strong>hello</strong></p>
+        <input type="text" id="quizAnswer" placeholder="Your Answer">
+        <button onclick="checkAnswer()">Submit</button>
+        <p id="quizResult"></p>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Language Learning Platform. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Sample data for phrases
+        const phrases = {
+            spanish: [
+                { english: 'Hello', translation: 'Hola' },
+                { english: 'Goodbye', translation: 'Adiós' },
+                { english: 'Please', translation: 'Por favor' },
+                { english: 'Thank you', translation: 'Gracias' }
+            ],
+            french: [
+                { english: 'Hello', translation: 'Bonjour' },
+                { english: 'Goodbye', translation: 'Au revoir' },
+                { english: 'Please', translation: 'S’il vous plaît' },
+                { english: 'Thank you', translation: 'Merci' }
+            ],
+            german: [
+                { english: 'Hello', translation: 'Hallo' },
+                { english: 'Goodbye', translation: 'Auf Wiedersehen' },
+                { english: 'Please', translation: 'Bitte' },
+                { english: 'Thank you', translation: 'Danke' }
+            ]
+        };
+
+        // Function to load phrases based on selected language
+        function loadPhrases() {
+            const language = document.getElementById("languageDropdown").value;
+            const phraseList = document.getElementById("phraseList");
+
+            phraseList.innerHTML = ''; // Clear the list
+
+            if (language) {
+                const selectedPhrases = phrases[language];
+
+                selectedPhrases.forEach(phrase => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = `${phrase.english} = ${phrase.translation}`;
+                    phraseList.appendChild(listItem);
+                });
+            }
+        }
+
+        // Quiz answer checking
+        function checkAnswer() {
+            const answer = document.getElementById("quizAnswer").value.toLowerCase();
+            const language = document.getElementById("languageDropdown").value;
+            const quizResult = document.getElementById("quizResult");
+
+            // For simplicity, the quiz question always checks the translation of "hello"
+            let correctAnswer = '';
+            if (language && phrases[language]) {
+                correctAnswer = phrases[language][0].translation.toLowerCase(); // First phrase is "hello"
+            }
+
+            if (answer === correctAnswer) {
+                quizResult.textContent = "Correct! Well done!";
+                quizResult.style.color = "green";
+            } else {
+                quizResult.textContent = "Incorrect! Try again.";
+                quizResult.style.color = "red";
+            }
+        }
+    </script>
+</body>
+</html>
